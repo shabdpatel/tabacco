@@ -15,10 +15,8 @@ interface Product {
     price: number;
 }
 
-
 const Homepage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
-
 
     const navigate = useNavigate(); // Initialize navigate
 
@@ -26,15 +24,21 @@ const Homepage: React.FC = () => {
         navigate("/console"); // Navigate to the console page
     };
 
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
-                const productsData = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                }));
+                const productsData: Product[] = querySnapshot.docs.map((doc) => {
+                    const data = doc.data();
+                    // Ensure all fields exist and match the `Product` type
+                    return {
+                        id: doc.id,
+                        image: data.image || "", // Fallback to empty string if not available
+                        title: data.title || "Untitled",
+                        author: data.author || "Unknown",
+                        price: data.price || 0,
+                    };
+                });
                 setProducts(productsData);
             } catch (error) {
                 console.error("Error fetching products: ", error);
@@ -57,7 +61,8 @@ const Homepage: React.FC = () => {
                     </p>
                     <button
                         onClick={handleGetStarted}
-                        className="flex items-center mx-auto md:mx-0 bg-white text-black font-medium px-4 md:px-6 py-2 rounded-full shadow hover:bg-gray-200 transition">
+                        className="flex items-center mx-auto md:mx-0 bg-white text-black font-medium px-4 md:px-6 py-2 rounded-full shadow hover:bg-gray-200 transition"
+                    >
                         Get Started{" "}
                         <span className="ml-2 text-lg">
                             <FaArrowRight />
@@ -84,14 +89,12 @@ const Homepage: React.FC = () => {
 
             {/* Products Section */}
             <section className="mt-6 px-4 md:px-6 lg:px-10">
-                {/* Horizontal Scroll Product List */}
                 <div className="flex overflow-x-scroll space-x-4 scrollbar-hide p-4 md:p-6 rounded-lg">
                     {products.map((product) => (
                         <div
                             key={product.id}
                             className="min-w-[200px] md:min-w-[220px] lg:min-w-[250px] max-w-[250px] bg-slate-50 rounded-xl shadow-md overflow-hidden"
                         >
-                            {/* Product Image */}
                             <div className="relative">
                                 <img
                                     src={product.image}
@@ -102,7 +105,6 @@ const Homepage: React.FC = () => {
                                     Buy Now
                                 </button>
                             </div>
-                            {/* Product Details */}
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold truncate">
                                     {product.title}
@@ -133,14 +135,12 @@ const Homepage: React.FC = () => {
             </div>
 
             <section className="mt-6 px-4 md:px-6 lg:px-10">
-                {/* Grid Product List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-4 md:p-6">
                     {products.map((product) => (
                         <div
                             key={product.id}
                             className="bg-slate-50 rounded-xl shadow-md overflow-hidden"
                         >
-                            {/* Product Image */}
                             <div className="relative">
                                 <img
                                     src={product.image}
@@ -151,7 +151,6 @@ const Homepage: React.FC = () => {
                                     Buy Now
                                 </button>
                             </div>
-                            {/* Product Details */}
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold truncate">
                                     {product.title}

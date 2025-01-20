@@ -33,10 +33,13 @@ const ExplorePage: React.FC = () => {
                 }
 
                 const querySnapshot = await getDocs(q);
-                const productsData = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...(doc.data() as Product),
-                }));
+                const productsData = querySnapshot.docs.map((doc) => {
+                    const data = doc.data() as Omit<Product, "id">; // Exclude `id` from the type
+                    return {
+                        id: doc.id,
+                        ...data,
+                    };
+                });
 
                 setProducts(productsData);
             } catch (error) {
@@ -45,6 +48,7 @@ const ExplorePage: React.FC = () => {
                 setLoading(false);
             }
         };
+
 
         const debounceFetch = setTimeout(fetchProducts, 300);
         return () => clearTimeout(debounceFetch);
