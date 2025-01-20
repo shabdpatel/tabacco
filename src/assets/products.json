@@ -1,0 +1,107 @@
+[
+    {
+        "id": 1,
+        "title": "Vintage Vase",
+        "author": "Senseithrifts",
+        "price": 1299,
+        "image": "https://via.placeholder.com/300x400?text=Vintage+Vase"
+    },
+    {
+        "id": 2,
+        "title": "Antique Clock",
+        "author": "AntiqueStore",
+        "price": 2599,
+        "image": "https://via.placeholder.com/300x400?text=Antique+Clock"
+    },
+    {
+        "id": 3,
+        "title": "Retro Camera",
+        "author": "ThriftFinds",
+        "price": 3899,
+        "image": "https://via.placeholder.com/300x400?text=Retro+Camera"
+    },
+    {
+        "id": 4,
+        "title": "Handmade Bowl",
+        "author": "CraftyHands",
+        "price": 699,
+        "image": "https://via.placeholder.com/300x400?text=Handmade+Bowl"
+    },
+    {
+        "id": 5,
+        "title": "Wooden Chair",
+        "author": "WoodArtisans",
+        "price": 4499,
+        "image": "https://via.placeholder.com/300x400?text=Wooden+Chair"
+    },
+    {
+        "id": 6,
+        "title": "Classic Watch",
+        "author": "Senseithrifts",
+        "price": 2199,
+        "image": "https://via.placeholder.com/300x400?text=Classic+Watch"
+    },
+    {
+        "id": 7,
+        "title": "Antique Lamp",
+        "author": "AntiqueStore",
+        "price": 1599,
+        "image": "https://via.placeholder.com/300x400?text=Antique+Lamp"
+    },
+    {
+        "id": 8,
+        "title": "Leather Wallet",
+        "author": "ThriftFinds",
+        "price": 999,
+        "image": "https://via.placeholder.com/300x400?text=Leather+Wallet"
+    },
+    {
+        "id": 9,
+        "title": "Antique Desk",
+        "author": "AntiqueStore",
+        "price": 6999,
+        "image": "https://via.placeholder.com/300x400?text=Antique+Desk"
+    },
+    {
+        "id": 10,
+        "title": "Vintage Sofa",
+        "author": "ThriftFinds",
+        "price": 9999,
+        "image": "https://via.placeholder.com/300x400?text=Vintage+Sofa"
+    },
+    {
+        "id": 11,
+        "title": "Handmade Jewelry",
+        "author": "CraftyHands",
+        "price": 399,
+        "image": "https://via.placeholder.com/300x400?text=Handmade+Jewelry"
+    },
+    {
+        "id": 12,
+        "title": "Antique Bookshelf",
+        "author": "AntiqueStore",
+        "price": 4999,
+        "image": "https://via.placeholder.com/300x400?text=Antique+Bookshelf"
+    },
+    {
+        "id": 13,
+        "title": "Vintage Typewriter",
+        "author": "ThriftFinds",
+        "price": 1499,
+        "image": "https://via.placeholder.com/300x400?text=Vintage+Typewriter"
+    },
+    {
+        "id": 14,
+        "title": "Wooden Coffee Table",
+        "author": "WoodArtisans",
+        "price": 3499,
+        "image": "https://via.placeholder.com/300x400?text=Wooden+Coffee+Table"
+    },
+    {
+        "id": 15,
+        "title": "Antique Rug",
+        "author": "AntiqueStore",
+        "price": 6999,
+        "image": "https://via.placeholder.com/300x400?text=Antique+Rug"
+    }
+]
