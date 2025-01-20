@@ -7,8 +7,19 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useNavigate } from "react-router-dom";
 
+interface Product {
+    id: string;
+    image: string;
+    title: string;
+    author: string;
+    price: number;
+}
+
+
 const Homepage: React.FC = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
+
+
     const navigate = useNavigate(); // Initialize navigate
 
     const handleGetStarted = () => {

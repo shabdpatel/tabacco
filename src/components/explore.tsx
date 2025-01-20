@@ -2,8 +2,16 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
+interface Product {
+    id: string;
+    image: string;
+    title: string;
+    author: string;
+    price: number;
+}
+
 const ExplorePage: React.FC = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -27,7 +35,7 @@ const ExplorePage: React.FC = () => {
                 const querySnapshot = await getDocs(q);
                 const productsData = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
-                    ...doc.data(),
+                    ...(doc.data() as Product),
                 }));
 
                 setProducts(productsData);
@@ -117,4 +125,3 @@ const ExplorePage: React.FC = () => {
 };
 
 export default ExplorePage;
-
