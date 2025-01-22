@@ -44,10 +44,11 @@ const Navbar: React.FC = () => {
                     >
                         <IoMdSearch />
                     </button>
-                    <button className="ml-1 px-2 py-2 h-6 rounded-lg flex items-center focus:outline-none">
+                    {/* Hide these icons on mobile view */}
+                    <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none">
                         <AiFillDollarCircle className="text-3xl" />
                     </button>
-                    <button className="ml-1 px-2 py-2 h-6 rounded-lg flex items-center focus:outline-none">
+                    <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none">
                         <IoMdCart className="text-3xl" />
                     </button>
                     <button

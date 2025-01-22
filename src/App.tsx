@@ -27,7 +27,6 @@ const App: React.FC = () => {
             <Route path="/terms" element={<Terms />} />
             <Route path="/policy" element={<Policy />} />
             <Route path="/contact" element={<Contact />} />
-
           </Routes>
         </main>
       </div>
