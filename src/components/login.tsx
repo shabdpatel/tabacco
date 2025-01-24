@@ -160,7 +160,7 @@ const LoginPage: React.FC = () => {
                         </ul>
                         <button
                             onClick={handleGoogleLogin}
-                            className="w-full bg-black text-white py-3 font-semibold mt-5 rounded-full hover:bg-gray-800 transition"
+                            className="w-full bg-black text-white py-3 font-semibold mt-7 rounded-full hover:bg-gray-800 transition"
                         >
                             <img
                                 src={google}

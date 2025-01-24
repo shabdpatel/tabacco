@@ -32,7 +32,8 @@ const Navbar: React.FC = () => {
                     <img
                         src={logo}
                         alt="Tobacco Logo"
-                        className="ml-6 h-16 w-auto"
+                        className="ml-6 h-16 w-auto cursor-pointer"
+                        onClick={() => navigate("/")} // Navigate to homepage on click
                     />
                 </div>
 
@@ -87,7 +88,7 @@ const Navbar: React.FC = () => {
                     </li>
                     <li className="flex items-center space-x-4 text-gray-700 hover:text-black transition">
                         <FaMoneyCheckAlt className="text-xl" />
-                        <a href="#" className="text-lg font-medium">
+                        <a href="/bid" className="text-lg font-medium">
                             Bids
                         </a>
                     </li>

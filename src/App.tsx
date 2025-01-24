@@ -9,6 +9,8 @@ import ExplorePage from "./components/explore";
 import Terms from "./components/terms";
 import Policy from "./components/policy";
 import Contact from "./components/contact";
+import ProductDetails from "./components/ProductDetails";
+import Bid from "./components/bid";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +29,8 @@ const App: React.FC = () => {
             <Route path="/terms" element={<Terms />} />
             <Route path="/policy" element={<Policy />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/bid" element={<Bid />} />
           </Routes>
         </main>
       </div>
