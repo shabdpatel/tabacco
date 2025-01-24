@@ -16,10 +16,6 @@ import DeliveryDetailsPage from "./components/deliverydetail";
 import Order from "./components/order";
 
 // Protected Route Component
-const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const isLoggedIn = !!localStorage.getItem("user"); // Check if user is logged in
-  return isLoggedIn ? children : <Navigate to="/login" />;
-};
 
 const App: React.FC = () => {
   return (

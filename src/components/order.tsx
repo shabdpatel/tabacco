@@ -8,7 +8,7 @@ interface Order {
 }
 
 const OrderPage: React.FC = () => {
-    const [orders, setOrders] = useState<Order[]>([]); // Start with an empty order list
+    const [orders] = useState<Order[]>([]); // Start with an empty order list
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 px-4">
