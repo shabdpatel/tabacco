@@ -185,7 +185,7 @@ const LoginPage: React.FC = () => {
                         className="bg-slate-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full md:w-3/4"
                         onSubmit={handleFormSubmit}
                     >
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="mb-4 md:mb-0">
                                 <label
                                     htmlFor="fullName"

@@ -1,5 +1,5 @@
-import React from "react";
-import image from "../assets/image.webp";
+import React from 'react';
+import image from '../assets/image.webp';
 
 const Console: React.FC = () => {
     return (
@@ -7,12 +7,14 @@ const Console: React.FC = () => {
             {/* Header Section */}
             <header className="mb-12 text-center">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight antialiased">
-                    Welcome to Tobacco{" "}
+                    Welcome to Tobacco{' '}
                     <span role="img" aria-label="party" className="ml-2">
                         🎉
                     </span>
                 </h1>
-
+                <p className="text-lg md:text-xl text-gray-300 antialiased">
+                    Join our thriving community of thrift store sellers!
+                </p>
             </header>
 
             {/* Why Sellers Love Section */}
@@ -22,40 +24,40 @@ const Console: React.FC = () => {
                     <h2 className="text-2xl md:text-3xl font-semibold mb-1 text-center md:text-left antialiased">
                         Why Sellers Love Tobacco:
                     </h2>
-                    <p className="text-lg md:text-xl text-gray-300 antialiased">
-                        Join our thriving community of thrift store sellers!
-                    </p>
-                    <div className="space-y-6">
-                        {/* Card 1 */}
-                        <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
-                            <h3 className="text-xl font-bold mb-3 text-white antialiased">
-                                Effortless Listing
-                            </h3>
-                            <p className="text-gray-400 leading-relaxed antialiased">
-                                Quickly upload single items or bulk batches in just a few clicks. Bulk
-                                uploads are hassle-free and come with a fixed price—perfect for managing
-                                large inventories.
-                            </p>
-                        </div>
-                        {/* Card 2 */}
-                        <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
-                            <h3 className="text-xl font-bold mb-3 text-white antialiased">
-                                Wide Appeal
-                            </h3>
-                            <p className="text-gray-400 leading-relaxed antialiased">
-                                Cater to vintage lovers from all walks of life with a diverse array of
-                                products—whether it's retro fashion, antique furniture, or rare
-                                collectibles.
-                            </p>
-                        </div>
-                        <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
-                            <h3 className="text-xl font-bold mb-3 text-white antialiased">
-                                Global Marketplace
-                            </h3>
-                            <p className="text-gray-400 leading-relaxed antialiased">
-                                Gain explore to the worldwide audience passionate about unique, one-of-a-kind treasure.
-                            </p>
-                        </div>
+
+                    {/* Card 1 */}
+                    <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
+                        <h3 className="text-xl font-bold mb-3 text-white antialiased">
+                            Effortless Listing
+                        </h3>
+                        <p className="text-gray-400 leading-relaxed antialiased">
+                            Quickly upload single items or bulk batches in just a few clicks. Bulk
+                            uploads are hassle-free and come with a fixed price—perfect for
+                            managing large inventories.
+                        </p>
+                    </div>
+
+                    {/* Card 2 */}
+                    <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
+                        <h3 className="text-xl font-bold mb-3 text-white antialiased">
+                            Wide Appeal
+                        </h3>
+                        <p className="text-gray-400 leading-relaxed antialiased">
+                            Cater to vintage lovers from all walks of life with a diverse array of
+                            products—whether it's retro fashion, antique furniture, or rare
+                            collectibles.
+                        </p>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition hover:shadow-2xl hover:bg-gray-700 antialiased">
+                        <h3 className="text-xl font-bold mb-3 text-white antialiased">
+                            Global Marketplace
+                        </h3>
+                        <p className="text-gray-400 leading-relaxed antialiased">
+                            Gain explore to the worldwide audience passionate about unique,
+                            one-of-a-kind treasure.
+                        </p>
                     </div>
                 </div>
 
@@ -73,4 +75,3 @@ const Console: React.FC = () => {
 };
 
 export default Console;
-

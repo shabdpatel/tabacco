@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar";
 import Homepage from "./components/homepage";
-import Console from "./components/console"
+import Console from "./components/console";
 import LoginPage from "./components/login";
 import ExplorePage from "./components/explore";
 import Terms from "./components/terms";
@@ -11,6 +11,15 @@ import Policy from "./components/policy";
 import Contact from "./components/contact";
 import ProductDetails from "./components/ProductDetails";
 import Bid from "./components/bid";
+import ProfilePage from "./components/profilepage";
+import DeliveryDetailsPage from "./components/deliverydetail";
+import Order from "./components/order";
+
+// Protected Route Component
+const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
+  const isLoggedIn = !!localStorage.getItem("user"); // Check if user is logged in
+  return isLoggedIn ? children : <Navigate to="/login" />;
+};
 
 const App: React.FC = () => {
   return (
@@ -31,6 +40,9 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/bid" element={<Bid />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/deliverydetails" element={<DeliveryDetailsPage />} />
+            <Route path="/order" element={<Order />} />
           </Routes>
         </main>
       </div>

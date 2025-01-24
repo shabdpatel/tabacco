@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdSearch, IoMdPerson } from "react-icons/io";
 import { FaHome, FaShoppingCart, FaMoneyCheckAlt, FaRegFileAlt, FaRegQuestionCircle } from "react-icons/fa";
@@ -10,11 +10,31 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate user login state
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Simulate form submission state
 
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    // Simulate fetching user login and form status (Replace this with actual logic)
+    useEffect(() => {
+        // For example, fetch this info from local storage, API, or context
+        const userLoggedIn = true; // Simulated: Replace with real logic
+        const formSubmitted = true; // Simulated: Replace with real logic
+        setIsLoggedIn(userLoggedIn);
+        setIsFormSubmitted(formSubmitted);
+    }, []);
+
+    // Redirect logic for the profile button
+    const handleProfileClick = () => {
+        if (isLoggedIn && isFormSubmitted) {
+            navigate("/profile");
+        } else {
+            navigate("/login");
+        }
     };
 
     return (
@@ -46,7 +66,10 @@ const Navbar: React.FC = () => {
                         <IoMdSearch />
                     </button>
                     {/* Hide these icons on mobile view */}
-                    <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none">
+                    <button
+                        className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none"
+                        onClick={() => navigate("/bid")}
+                    >
                         <AiFillDollarCircle className="text-3xl" />
                     </button>
                     <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none">
@@ -54,7 +77,7 @@ const Navbar: React.FC = () => {
                     </button>
                     <button
                         className="ml-1 px-2 py-2 h-6 rounded-lg flex items-center focus:outline-none"
-                        onClick={() => navigate("/login")}
+                        onClick={handleProfileClick} // Navigate to profile or login based on status
                     >
                         <IoMdPerson className="text-3xl" />
                     </button>
@@ -94,7 +117,7 @@ const Navbar: React.FC = () => {
                     </li>
                     <li className="flex items-center space-x-4 text-gray-700 hover:text-black transition">
                         <FaRegFileAlt className="text-xl" />
-                        <a href="#" className="text-lg font-medium">
+                        <a href="/order" className="text-lg font-medium">
                             Orders
                         </a>
                     </li>
