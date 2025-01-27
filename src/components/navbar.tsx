@@ -72,7 +72,8 @@ const Navbar: React.FC = () => {
                     >
                         <AiFillDollarCircle className="text-3xl" />
                     </button>
-                    <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none">
+                    <button className="hidden sm:flex ml-1 px-2 py-2 h-6 rounded-lg items-center focus:outline-none"
+                        onClick={() => navigate("/order")}>
                         <IoMdCart className="text-3xl" />
                     </button>
                     <button

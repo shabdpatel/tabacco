@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import { setDoc, doc } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import {
@@ -19,13 +20,13 @@ import { VscWorkspaceTrusted } from "react-icons/vsc";
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDg2TyBN8wmhcC_7_70HpBJG6Hth6FTRp0",
-    authDomain: "nithhub-bc619.firebaseapp.com",
-    projectId: "nithhub-bc619",
-    storageBucket: "nithhub-bc619.firebasestorage.app",
-    messagingSenderId: "488001460745",
-    appId: "1:488001460745:web:eab3cbf10c57b185c1b6d8",
-    measurementId: "G-TZ50RPTDMS",
+    apiKey: "AIzaSyD8cP6elbvnfVkak6Gau8sh9Fqmy0ttOFc",
+    authDomain: "tabacco-fda3c.firebaseapp.com",
+    projectId: "tabacco-fda3c",
+    storageBucket: "tabacco-fda3c.firebasestorage.app",
+    messagingSenderId: "261142238885",
+    appId: "1:261142238885:web:19cf1852469481344c1f4c",
+    measurementId: "G-15K69HTYZR"
 };
 
 // Initialize Firebase
@@ -85,10 +86,15 @@ const LoginPage: React.FC = () => {
         e.preventDefault();
 
         try {
-            // Save form data to Firestore
-            await addDoc(collection(db, "userDetails"), {
+            if (!user?.email) {
+                alert("User email not available. Please login again.");
+                return;
+            }
+
+            // Save form data to Firestore with user's email as the document ID
+            await setDoc(doc(db, "users", user.email), {
                 ...formData,
-                userId: user?.uid, // Add user ID to associate form data with the logged-in user
+                userId: user.uid, // Add user ID to associate form data with the logged-in user
                 createdAt: new Date(), // Add a timestamp for when the document is created
             });
 

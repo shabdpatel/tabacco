@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaGlassMartiniAlt } from "react-icons/fa";
 import { MdOutlineStorefront } from "react-icons/md";
+import { GrDeliver } from "react-icons/gr";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebaseconfig";
@@ -15,27 +16,37 @@ interface Product {
     price: number;
 }
 
+interface Auction {
+    id: string;
+    image: string;
+    title: string;
+    currentBid: number;
+    endTime: string;
+}
+
 const Homepage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [auctions, setAuctions] = useState<Auction[]>([]);
 
     const navigate = useNavigate(); // Initialize navigate
 
     const handleGetStarted = () => {
-        navigate("/console"); // Navigate to the console page
+        window.open("https://console.tobac.co.in/", "_blank"); // Navigate to the console page in a new tab
+        navigate("https://console.tobac.co.in/"); // Navigate to the console page
     };
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const querySnapshot = await getDocs(collection(db, "products"));
+                const querySnapshot = await getDocs(collection(db, "NormalProducts"));
                 const productsData: Product[] = querySnapshot.docs.map((doc) => {
                     const data = doc.data();
                     // Ensure all fields exist and match the `Product` type
                     return {
                         id: doc.id,
-                        image: data.image || "", // Fallback to empty string if not available
-                        title: data.title || "Untitled",
-                        author: data.author || "Unknown",
+                        image: data.productPhotoUrls || "", // Fallback to empty string if not available
+                        title: data.product_name || "Untitled",
+                        author: data.seller || "Unknown",
                         price: data.price || 0,
                     };
                 });
@@ -44,8 +55,27 @@ const Homepage: React.FC = () => {
                 console.error("Error fetching products: ", error);
             }
         };
+        const fetchAuctions = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "Auctions"));
+                const auctionsData: Auction[] = querySnapshot.docs.map((doc) => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        image: data.productPhotoUrls || "",
+                        title: data.product_name || "Untitled",
+                        currentBid: data.currentBid || 0,
+                        endTime: data.BiddingEnd || "Unknown",
+                    };
+                });
+                setAuctions(auctionsData);
+            } catch (error) {
+                console.error("Error fetching auctions: ", error);
+            }
+        };
 
         fetchProducts();
+        fetchAuctions();
     }, []);
 
     return (
@@ -73,6 +103,54 @@ const Homepage: React.FC = () => {
                     <MdOutlineStorefront />
                 </div>
             </section>
+
+            <div className="relative flex items-center justify-center my-8 md:my-12">
+                <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-500"></div>
+                </div>
+                <div className="relative bg-white px-4 text-lg font-medium flex items-center space-x-2">
+                    <span>Live Auction</span>
+                    <span className="text-xl">
+                        <GrDeliver />
+                    </span>
+                </div>
+            </div>
+
+            {/* Live Auction Section */}
+            {/* Live Auction Section */}
+            <section className="mt-8 px-4 md:px-6 lg:px-10">
+                <div className="flex overflow-x-scroll space-x-4 scrollbar-hide p-4 md:p-6 rounded-lg">
+                    {auctions.map((auction) => (
+                        <div
+                            key={auction.id}
+                            className="min-w-[200px] md:min-w-[220px] lg:min-w-[250px] max-w-[250px] bg-slate-50 rounded-xl shadow-md overflow-hidden"
+                        >
+                            <div className="relative">
+                                <img
+                                    src={auction.image}
+                                    alt={auction.title}
+                                    className="w-full h-36 md:h-40 lg:h-48 object-cover"
+                                />
+                                <div className="absolute bottom-2 left-2 bg-black text-white text-xs px-3 py-1 rounded-lg shadow">
+                                    BiddingEnd: {auction.BiddingEnd}
+                                </div>
+                            </div>
+                            <div className="p-4">
+                                <h3 className="text-sm font-semibold truncate">
+                                    {auction.title}
+                                </h3>
+                                <p className="text-lg font-bold mb-4">
+                                    Current Bid: ₹{auction.currentBid}
+                                </p>
+                                <button className="w-full bg-gray-200 hover:bg-gray-300 text-sm font-medium text-black py-2 rounded-lg shadow transition">
+                                    Place Bid
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
 
             {/* Separator */}
             <div className="relative flex items-center justify-center my-8 md:my-12">
