@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { setDoc, doc } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import {
     getAuth,

@@ -22,6 +22,7 @@ interface Auction {
     title: string;
     currentBid: number;
     endTime: string;
+    BiddingEnd: string;
 }
 
 const Homepage: React.FC = () => {
