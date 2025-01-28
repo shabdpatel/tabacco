@@ -9,7 +9,7 @@ import ExplorePage from "./components/explore";
 import Terms from "./components/terms";
 import Policy from "./components/policy";
 import Contact from "./components/contact";
-import ProductDetails from "./components/ProductDetails";
+import ProductDetail from "./components/productdetails";
 import Bid from "./components/bid";
 import ProfilePage from "./components/profilepage";
 import DeliveryDetailsPage from "./components/deliverydetail";
@@ -34,7 +34,7 @@ const App: React.FC = () => {
             <Route path="/terms" element={<Terms />} />
             <Route path="/policy" element={<Policy />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/bid" element={<Bid />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/deliverydetails" element={<DeliveryDetailsPage />} />

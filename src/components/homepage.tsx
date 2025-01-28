@@ -29,6 +29,11 @@ const Homepage: React.FC = () => {
     const [auctions, setAuctions] = useState<Auction[]>([]);
 
     const navigate = useNavigate(); // Initialize navigate
+    // const { id } = useParams();
+
+    const handleCardClick = (productId: string) => {
+        navigate(`/product/${productId}`);
+    };
 
     const handleGetStarted = () => {
         window.open("https://console.tobac.co.in/", "_blank"); // Navigate to the console page in a new tab
@@ -44,7 +49,7 @@ const Homepage: React.FC = () => {
                     // Ensure all fields exist and match the `Product` type
                     return {
                         id: doc.id,
-                        image: data.productPhotoUrls || "", // Fallback to empty string if not available
+                        image: Array.isArray(data.productPhotoUrls) ? data.productPhotoUrls[0] : data.productPhotoUrls, // Fallback to empty string if not available
                         title: data.product_name || "Untitled",
                         author: data.seller || "Unknown",
                         price: data.price || 0,
@@ -62,7 +67,7 @@ const Homepage: React.FC = () => {
                     const data = doc.data();
                     return {
                         id: doc.id,
-                        image: data.productPhotoUrls || "",
+                        image: Array.isArray(data.productPhotoUrls) ? data.productPhotoUrls[0] : data.productPhotoUrls,
                         title: data.product_name || "Untitled",
                         currentBid: data.currentBid || 0,
                         endTime: data.BiddingEnd ? data.BiddingEnd.toString() : "Unknown", // Ensure `endTime` is always a string
@@ -180,9 +185,9 @@ const Homepage: React.FC = () => {
                                     alt={product.title}
                                     className="w-full h-36 md:h-40 lg:h-48 object-cover"
                                 />
-                                <button className="absolute top-2 right-2 bg-black text-slate-400 text-xs px-3 py-1 rounded-lg shadow hover:bg-gray-800 transition">
+                                {/* <button className="absolute top-2 right-2 bg-black text-slate-400 text-xs px-3 py-1 rounded-lg shadow hover:bg-gray-800 transition" >
                                     Buy Now
-                                </button>
+                                </button> */}
                             </div>
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold truncate">
@@ -192,9 +197,13 @@ const Homepage: React.FC = () => {
                                     By {product.author}
                                 </p>
                                 <p className="text-lg font-bold mb-4">₹{product.price}</p>
-                                <button className="w-full bg-gray-200 hover:bg-gray-300 text-sm font-medium text-black py-2 rounded-lg shadow transition">
+                                <button
+                                    className="w-full bg-slate-600 text-white text-xs px-3 py-2 rounded-lg shadow hover:bg-gray-800 transition"
+                                    onClick={() => handleCardClick(product.id)}
+                                >
                                     Buy Now
                                 </button>
+
                             </div>
                         </div>
                     ))}
@@ -226,9 +235,9 @@ const Homepage: React.FC = () => {
                                     alt={product.title}
                                     className="w-full h-36 md:h-40 lg:h-48 object-cover"
                                 />
-                                <button className="absolute top-2 right-2 bg-black text-slate-400 text-xs px-3 py-1 rounded-lg shadow hover:bg-gray-800 transition">
+                                {/* <button className="absolute top-2 right-2 bg-black text-slate-400 text-xs px-3 py-1 rounded-lg shadow hover:bg-gray-800 transition">
                                     Buy Now
-                                </button>
+                                </button> */}
                             </div>
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold truncate">
@@ -238,7 +247,10 @@ const Homepage: React.FC = () => {
                                     By {product.author}
                                 </p>
                                 <p className="text-lg font-bold mb-4">₹{product.price}</p>
-                                <button className="w-full bg-gray-200 hover:bg-gray-300 text-sm font-medium text-black py-2 rounded-lg shadow transition">
+                                <button
+                                    className="w-full bg-slate-600 text-white text-xs px-3 py-2 rounded-lg shadow hover:bg-gray-800 transition"
+                                    onClick={() => handleCardClick(product.id)}
+                                >
                                     Buy Now
                                 </button>
                             </div>
