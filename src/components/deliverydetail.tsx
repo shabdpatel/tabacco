@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const DeliveryDetailsPage: React.FC = () => {
     const navigate = useNavigate();
-    const [userDetails, setUserDetails] = useState<any>({
+    const [userDetails, setUserDetails] = useState({
         fullName: "",
         mobileNumber: "",
         address: "",
@@ -21,18 +21,19 @@ const DeliveryDetailsPage: React.FC = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             const currentUser = auth.currentUser;
-            if (!currentUser) {
+
+            if (!currentUser || !currentUser.email) {
                 alert("User not logged in.");
-                navigate("/login"); // Redirect to the login page if not logged in
+                navigate("/login");
                 return;
             }
 
             try {
-                const docRef = doc(db, "users", currentUser.email); // Assuming email is used as the document ID
+                const docRef = doc(db, "users", currentUser.email);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    setUserDetails(docSnap.data());
+                    setUserDetails(docSnap.data() as typeof userDetails);
                 } else {
                     console.error("No such document!");
                 }
@@ -61,7 +62,8 @@ const DeliveryDetailsPage: React.FC = () => {
         setIsSaving(true);
         try {
             const currentUser = auth.currentUser;
-            if (!currentUser) {
+
+            if (!currentUser || !currentUser.email) {
                 alert("User not logged in.");
                 navigate("/login");
                 return;
@@ -163,8 +165,7 @@ const DeliveryDetailsPage: React.FC = () => {
                     <button
                         onClick={handleSave}
                         disabled={isSaving}
-                        className={`px-6 py-3 mb-3 rounded-lg shadow ${isSaving ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                            } text-white`}
+                        className={`px-6 py-3 mb-3 rounded-lg shadow ${isSaving ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white`}
                     >
                         {isSaving ? "Saving..." : "Save Changes"}
                     </button>
@@ -181,4 +182,3 @@ const DeliveryDetailsPage: React.FC = () => {
 };
 
 export default DeliveryDetailsPage;
-

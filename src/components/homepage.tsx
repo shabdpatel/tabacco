@@ -22,7 +22,6 @@ interface Auction {
     title: string;
     currentBid: number;
     endTime: string;
-    BiddingEnd: string;
 }
 
 const Homepage: React.FC = () => {
@@ -66,7 +65,7 @@ const Homepage: React.FC = () => {
                         image: data.productPhotoUrls || "",
                         title: data.product_name || "Untitled",
                         currentBid: data.currentBid || 0,
-                        endTime: data.BiddingEnd || "Unknown",
+                        endTime: data.BiddingEnd ? data.BiddingEnd.toString() : "Unknown", // Ensure `endTime` is always a string
                     };
                 });
                 setAuctions(auctionsData);
@@ -74,6 +73,7 @@ const Homepage: React.FC = () => {
                 console.error("Error fetching auctions: ", error);
             }
         };
+
 
         fetchProducts();
         fetchAuctions();
@@ -133,7 +133,7 @@ const Homepage: React.FC = () => {
                                     className="w-full h-36 md:h-40 lg:h-48 object-cover"
                                 />
                                 <div className="absolute bottom-2 left-2 bg-black text-white text-xs px-3 py-1 rounded-lg shadow">
-                                    BiddingEnd: {auction.BiddingEnd}
+                                    BiddingEnd: {auction.endTime}
                                 </div>
                             </div>
                             <div className="p-4">
@@ -251,3 +251,4 @@ const Homepage: React.FC = () => {
 };
 
 export default Homepage;
+
