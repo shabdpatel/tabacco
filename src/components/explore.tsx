@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "./firebaseconfig";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
     id: string;
@@ -15,46 +16,32 @@ const ExplorePage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    // Debounce Effect: Updates `debouncedSearchTerm` after user stops typing for 300ms
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
-        }, 300); // Adjust debounce delay as needed (e.g., 300ms)
-
-        return () => {
-            clearTimeout(handler); // Cleanup timeout on every new keystroke
-        };
+        }, 300);
+        return () => clearTimeout(handler);
     }, [searchTerm]);
 
-    // Fetch products when `debouncedSearchTerm` changes
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                let q;
-                if (debouncedSearchTerm.trim() === "") {
-                    q = query(collection(db, "NormalProducts"));
-                } else {
-                    const lowerCaseSearchTerm = debouncedSearchTerm.toLowerCase();
-                    q = query(
-                        collection(db, "NormalProducts"),
-                        where("titleLower", ">=", lowerCaseSearchTerm),
-                        where("titleLower", "<=", lowerCaseSearchTerm + "\uf8ff")
-                    );
-                }
-
-                console.log("Executing query:", q);
-
+                const q = query(collection(db, "NormalProducts"));
                 const querySnapshot = await getDocs(q);
-                const productsData = querySnapshot.docs.map((doc) => {
-                    const data = doc.data() as Omit<Product, "id">;
-                    return { id: doc.id, ...data };
-                });
+                const productsData = querySnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                })) as Product[];
 
-                console.log("Fetched products:", productsData);
+                // Filter results in frontend
+                const filteredProducts = productsData.filter((product) =>
+                    product.product_name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+                );
 
-                setProducts(productsData);
+                setProducts(filteredProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
@@ -65,20 +52,20 @@ const ExplorePage: React.FC = () => {
         fetchProducts();
     }, [debouncedSearchTerm]);
 
+    const handleCardClick = (productId: string) => {
+        navigate(`/product/${productId}`);
+    };
+
     return (
         <div className="bg-white min-h-screen">
             <section className="px-4 md:px-6 lg:px-10">
                 <div className="flex flex-col md:flex-row items-center justify-between">
-                    <h1 className="text-3xl md:text-4xl font-semibold mb-4 md:mb-0 break-words">
+                    <h1 className="text-3xl md:text-4xl font-semibold mb-4 md:mb-0">
                         Explore Tobac Store
                     </h1>
-                    <form
-                        className="flex items-center"
-                        onSubmit={(e) => e.preventDefault()}
-                    >
+                    <form className="flex items-center" onSubmit={(e) => e.preventDefault()}>
                         <input
                             type="search"
-                            name="search"
                             placeholder="Search products"
                             className="px-4 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
                             value={searchTerm}
@@ -105,7 +92,8 @@ const ExplorePage: React.FC = () => {
                         {products.map((product) => (
                             <div
                                 key={product.id}
-                                className="bg-slate-50 rounded-xl shadow-md overflow-hidden"
+                                className="bg-slate-50 rounded-xl shadow-md overflow-hidden cursor-pointer"
+                                onClick={() => handleCardClick(product.id)}
                             >
                                 <div className="relative">
                                     <img
@@ -113,9 +101,6 @@ const ExplorePage: React.FC = () => {
                                         alt={product.product_name}
                                         className="w-full h-36 md:h-40 lg:h-48 object-cover"
                                     />
-                                    <button className="absolute top-2 right-2 bg-black text-slate-400 text-xs px-3 py-1 rounded-lg shadow hover:bg-gray-800 transition">
-                                        Buy Now
-                                    </button>
                                 </div>
                                 <div className="p-4">
                                     <h3 className="text-sm font-semibold truncate">
@@ -125,7 +110,9 @@ const ExplorePage: React.FC = () => {
                                         By {product.seller}
                                     </p>
                                     <p className="text-lg font-bold mb-4">₹{product.price}</p>
-                                    <button className="w-full bg-gray-200 hover:bg-gray-300 text-sm font-medium text-black py-2 rounded-lg shadow transition">
+                                    <button
+                                        className="w-full bg-slate-600 text-white text-xs px-3 py-2 rounded-lg shadow hover:bg-gray-800 transition"
+                                    >
                                         Buy Now
                                     </button>
                                 </div>
