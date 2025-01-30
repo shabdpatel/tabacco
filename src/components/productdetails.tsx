@@ -34,7 +34,7 @@ const ProductDetail: React.FC = () => {
     if (!product) return <div className="text-center py-10">Loading...</div>;
 
     return (
-        <div className="max-w-5xl mx-auto p-6 bg-slate-100 shadow-lg rounded-lg md:flex md:gap-8">
+        <div className="w-full p-4 bg-slate-100 shadow-lg rounded-lg md:flex md:gap-8 md:max-w-5xl md:mx-auto">
             {/* Left Side - Product Images */}
             <div className="md:w-1/2">
                 {/* Main Image */}
@@ -63,7 +63,7 @@ const ProductDetail: React.FC = () => {
             </div>
 
             {/* Right Side - Product Details */}
-            <div className="md:w-1/2 flex flex-col justify-between">
+            <div className="md:w-1/2 flex flex-col justify-between mt-6 md:mt-0">
                 <div>
                     {/* Product Name & Seller */}
                     <h1 className="text-3xl font-bold">{product.product_name || "Untitled Product"}</h1>
