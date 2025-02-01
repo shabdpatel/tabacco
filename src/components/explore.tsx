@@ -58,7 +58,7 @@ const ExplorePage: React.FC = () => {
 
     return (
         <div className="bg-white min-h-screen">
-            <section className="px-4 md:px-6 lg:px-10">
+            <section className="px-2 md:px-6 lg:px-10">
                 <div className="flex flex-col md:flex-row items-center justify-between">
                     <h1 className="text-3xl md:text-4xl font-semibold mb-4 md:mb-0">
                         Explore Tobac Store
